@@ -11,6 +11,7 @@ namespace leave_mangment.contracts
         T FindById(int id);
         bool Create(T entity);
         bool Update(T entity);
+        bool exists(int id);
         bool Delete(T entity);
         bool Save();
     }

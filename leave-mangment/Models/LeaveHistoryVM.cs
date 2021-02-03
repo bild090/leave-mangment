@@ -17,7 +17,7 @@ namespace leave_mangment.Models
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
-        public DetailsLeaveTypeMV LeaveType { get; set; }
+        public LeaveTypeMV LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
         public DateTime RequestedDate { get; set; }
         public DateTime RequestedActioned { get; set; }

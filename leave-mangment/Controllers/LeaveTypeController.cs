@@ -2,6 +2,7 @@
 using leave_mangment.contracts;
 using leave_mangment.Data;
 using leave_mangment.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace leave_mangment.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class LeaveTypeController : Controller
     {
         private ILeaveTypeRepository _repo;

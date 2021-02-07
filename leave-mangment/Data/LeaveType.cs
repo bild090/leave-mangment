@@ -12,6 +12,7 @@ namespace leave_mangment.Data
         public int Id { get; set; }
         [Required]
         public String Name { get; set; }
+        public int DefualtDays { get; set; }
         public DateTime DateCreated { get; set; }
     }
 }

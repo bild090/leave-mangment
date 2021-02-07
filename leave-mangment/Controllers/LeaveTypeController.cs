@@ -28,7 +28,7 @@ namespace leave_mangment.Controllers
         public ActionResult Index()
         {
             var leavetype = _repo.FindAll().ToList();
-            var model = _mapper.Map<List<LeaveType>, List<LeaveTypeMV>>(leavetype);
+            var model = _mapper.Map<List<LeaveType>, List<LeaveTypeVM>>(leavetype);
             return View(model);
         }
 
@@ -39,7 +39,7 @@ namespace leave_mangment.Controllers
                 return NotFound();
             }
             var leavType = _repo.FindById(id);
-            var model = _mapper.Map<LeaveTypeMV>(leavType);
+            var model = _mapper.Map<LeaveTypeVM>(leavType);
             return View(model);
         }
 
@@ -52,7 +52,7 @@ namespace leave_mangment.Controllers
         // POST: LeaveTypeController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(LeaveTypeMV model)
+        public ActionResult Create(LeaveTypeVM model)
         {
             try
             {
@@ -84,14 +84,14 @@ namespace leave_mangment.Controllers
                 return NotFound();
             }
             var leaveType = _repo.FindById(id);
-            var model = _mapper.Map<LeaveTypeMV>(leaveType);
+            var model = _mapper.Map<LeaveTypeVM>(leaveType);
             return View(model);
         }
 
         // POST: LeaveTypeController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, LeaveTypeMV model)
+        public ActionResult Edit(int id, LeaveTypeVM model)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace leave_mangment.Controllers
                 return NotFound();
             }
             var leaveType = _repo.FindById(id);
-            var model = _mapper.Map<LeaveTypeMV>(leaveType);
+            var model = _mapper.Map<LeaveTypeVM>(leaveType);
             return View(model);
         }
 

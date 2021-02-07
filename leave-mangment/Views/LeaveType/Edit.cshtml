@@ -1,4 +1,4 @@
-﻿@model leave_mangment.Models.LeaveTypeMV
+﻿@model leave_mangment.Models.LeaveTypeVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -17,18 +17,19 @@
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div><div class="form-group">
+                <label asp-for="DefualtDays" class="control-label"></label>
+                <input asp-for="DefualtDays" class="form-control" />
+                <span asp-validation-for="DefualtDays" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save Changes" class="btn btn-success btn-block" />
             </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-outline-dark btn-block">Back to List</a>
+            </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">
-        <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-    </a>
 </div>
 
 @section Scripts {

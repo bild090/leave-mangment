@@ -1,0 +1,63 @@
+﻿@model leave_mangment.Models.CreateLeaveRequestVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h4>Create Leave Request</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LeaveType" class="control-label"></label>
+                @Html.DropDownListFor(q => q.LeaveTypeId, new SelectList( Model.LeaveTypes, "Value","Text"), "Select Leave Type", new {@class="form-control" })
+                <span asp-validation-for="LeaveType" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control datepicker" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control datepicker" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="RequestComment" class="control-label"></label>
+                        <textarea asp-for="RequestComment" class="form-control datepicker"  ></textarea>
+                        <span asp-validation-for="RequestComment" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>  
+            <div class="form-group">
+                <input type="submit" value="Create New Request" class="btn btn-primary btn-block col-md-12" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="myLeave" class="btn btn-outline-dark col-md-12">Back to List</a>
+</div>
+
+@section Scripts{ 
+    <script>
+  $( function() {
+      $(".datepicker").datepicker({
+          dataFormat: "yy-mm-dd"
+      });
+  } );
+    </script>
+}
+

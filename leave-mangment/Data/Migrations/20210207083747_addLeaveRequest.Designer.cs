@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using leave_mangment.Data;
 
 namespace leave_mangment.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210207083747_addLeaveRequest")]
+    partial class addLeaveRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,19 +271,13 @@ namespace leave_mangment.Data.Migrations
                     b.Property<string>("ApprovedById")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("Cancelled")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestComment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RequestedActioned")
+                    b.Property<DateTime>("RequestedActioned")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("RequestedDate")
@@ -326,6 +322,31 @@ namespace leave_mangment.Data.Migrations
                     b.ToTable("LeaveTypes");
                 });
 
+            modelBuilder.Entity("leave_mangment.Models.EditLeaveAllocation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("LeaveTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NUmberOfDays")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("LeaveTypeId");
+
+                    b.ToTable("EditLeaveAllocation");
+                });
+
             modelBuilder.Entity("leave_mangment.Models.EmployeeVM", b =>
                 {
                     b.Property<string>("Id")
@@ -363,50 +384,35 @@ namespace leave_mangment.Data.Migrations
                     b.ToTable("EmployeeVM");
                 });
 
-            modelBuilder.Entity("leave_mangment.Models.LeaveRequestVM", b =>
+            modelBuilder.Entity("leave_mangment.Models.LeaveAllocationVM", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool?>("Approved")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ApprovedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestComment")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                    b.Property<int>("NumberOfDays")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("RequestedActioned")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("period")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("RequestedDate")
-                        .HasColumnType("datetime2");
+                    b.HasKey("id");
 
-                    b.Property<string>("RequestingEmplyeeId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApprovedById");
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("LeaveTypeId");
 
-                    b.HasIndex("RequestingEmplyeeId");
-
-                    b.ToTable("LeaveRequestVM");
+                    b.ToTable("LeaveAllocationVM");
                 });
 
             modelBuilder.Entity("leave_mangment.Models.LeaveTypeVM", b =>
@@ -428,7 +434,7 @@ namespace leave_mangment.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LeaveTypeVM");
+                    b.ToTable("DetailsLeaveTypeMV");
                 });
 
             modelBuilder.Entity("leave_mangment.Data.Employee", b =>
@@ -537,21 +543,28 @@ namespace leave_mangment.Data.Migrations
                         .HasForeignKey("RequestingEmplyeeId");
                 });
 
-            modelBuilder.Entity("leave_mangment.Models.LeaveRequestVM", b =>
+            modelBuilder.Entity("leave_mangment.Models.EditLeaveAllocation", b =>
                 {
-                    b.HasOne("leave_mangment.Models.EmployeeVM", "ApprovedBy")
+                    b.HasOne("leave_mangment.Models.EmployeeVM", "Employee")
                         .WithMany()
-                        .HasForeignKey("ApprovedById");
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("leave_mangment.Models.LeaveTypeVM", "LeaveType")
+                        .WithMany()
+                        .HasForeignKey("LeaveTypeId");
+                });
+
+            modelBuilder.Entity("leave_mangment.Models.LeaveAllocationVM", b =>
+                {
+                    b.HasOne("leave_mangment.Models.EmployeeVM", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
 
                     b.HasOne("leave_mangment.Models.LeaveTypeVM", "LeaveType")
                         .WithMany()
                         .HasForeignKey("LeaveTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("leave_mangment.Models.EmployeeVM", "RequestingEmplyee")
-                        .WithMany()
-                        .HasForeignKey("RequestingEmplyeeId");
                 });
 #pragma warning restore 612, 618
         }

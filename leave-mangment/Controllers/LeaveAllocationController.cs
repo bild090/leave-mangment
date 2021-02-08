@@ -17,10 +17,10 @@ namespace leave_mangment.Controllers
     public class LeaveAllocationController : Controller
     {
 
-        private ILeaveTypeRepository _leaveTypeRepo;
-        private ILeaveAllocationRepository _leavAllocationRepo;
-        private IMapper _mapper;
-        private UserManager<Employee> _userManager;
+        private readonly ILeaveTypeRepository _leaveTypeRepo;
+        private readonly ILeaveAllocationRepository _leavAllocationRepo;
+        private readonly IMapper _mapper;
+        private readonly UserManager<Employee> _userManager;
 
         public LeaveAllocationController(
              ILeaveTypeRepository leaveTypeRepo,

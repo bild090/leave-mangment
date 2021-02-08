@@ -36,7 +36,7 @@ namespace leave_mangment
                     Configuration.GetConnectionString("DefaultConnection")));
             //adding refernce to reporsitory and contracts
             services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
-            services.AddScoped<ILeaveHisotryRepository, LeaveHistoryRepository>();
+            services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
 
             //adding mapping

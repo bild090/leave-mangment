@@ -22,7 +22,13 @@
             <span class="info-box-icon bg-aqua badge-warning"><i class="fa fa-exclamation-circle"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text h3">@Model.PendingRequests</span>
+                <span class="info-box-text h3">@foreach (var item in Model.LeaveRequests)
+                {
+                    if (!item.Cancelled && item.Approved == null) 
+                    {
+                        @Model.PendingRequests
+                    }
+                }</span>
                 <span class="info-box-number">@Html.DisplayNameFor(Model => Model.PendingRequests)</span>
             </div>
             <!-- /.info-box-content -->
@@ -99,21 +105,27 @@
                 @Html.DisplayFor(modelItem => item.RequestedDate)
             </td>
             <td>
-                @if (item.Approved == true) 
+                @if (item.Approved == true)
                 {
                     <i class="badge badge-success">Approved</i>
                 }
-                else if(item.Approved == false)
+                else if (item.Approved == false)
                 {
                     <i class="badge badge-danger">Rejected</i>
+                }else if (item.Cancelled && item.Approved == null)
+                {
+                <i class="badge badge-secondary">Cancelled</i>
                 }
                 else
                 {
-                    <i class="badge badge-warning">Pending</i>
+                <i class="badge badge-warning">Pending</i>
                 }
             </td>
             <td>
-                <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-file"></i> Review</a> 
+                @if (!item.Cancelled)
+                {
+                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-file"></i> Review</a>
+                }
             </td>
         </tr>
 }

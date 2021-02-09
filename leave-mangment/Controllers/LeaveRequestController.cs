@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace leave_mangment.Controllers
 {
-    
+    [Authorize]
     public class LeaveRequestController : Controller
     {
         private readonly ILeaveRequestRepository _leaveRequest;
